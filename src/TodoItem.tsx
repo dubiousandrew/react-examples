@@ -7,9 +7,7 @@ export const TodoItem = observer((props: { todo: Todo }) => {
   return (
     <li
       style={style}
-      onClick={() => {
-        props.todo.completed = !props.todo.completed;
-      }}
+      onClick={() => props.todo.toggleTodo()}
       key={props.todo.id}
     >
       {props.todo.content}

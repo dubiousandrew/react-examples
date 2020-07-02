@@ -1,4 +1,4 @@
-import { observable, computed } from "mobx";
+import { observable, computed, action } from "mobx";
 
 export class Todo {
   @observable content: string = "";
@@ -9,12 +9,21 @@ export class Todo {
     this.id = id;
     this.content = content;
   }
+
+  @action.bound
+  toggleTodo() {
+    this.completed = !this.completed;
+  }
 }
 
 export class TodoList {
-  @observable nextId: number = 0;
+  nextId: number = 0;
   @observable todos: Todo[] = [];
   @computed get incompleteCount() {
     return this.todos.filter((t) => !t.completed).length;
+  }
+  @action.bound
+  addTodo(content: string) {
+    this.todos.push(new Todo(this.nextId++, content));
   }
 }

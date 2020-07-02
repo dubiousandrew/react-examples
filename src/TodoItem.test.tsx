@@ -3,27 +3,19 @@ import { render, fireEvent } from "@testing-library/react";
 import { TodoItem } from "./TodoItem";
 import { Todo } from "./todo.interface";
 
-const todoItem: Todo = {
-  content: "learn react",
-  id: 1,
-  completed: false,
-};
+const todoItem = new Todo(1, "learn react");
 
 test("shows the todo", () => {
-  const { getByText } = render(
-    <TodoItem todo={todoItem} toggleTodo={() => {}} />
-  );
+  const { getByText } = render(<TodoItem todo={todoItem} />);
   const item = getByText(/learn react/i);
   expect(item).toBeInTheDocument();
 });
 
 test("toggles todo", () => {
-  const mockToggleTodo = jest.fn();
-  const { getByText } = render(
-    <TodoItem todo={todoItem} toggleTodo={mockToggleTodo} />
-  );
+  const mockToggleTodo = jest.spyOn(todoItem, "toggleTodo");
+  const { getByText } = render(<TodoItem todo={todoItem} />);
   const item = getByText(/learn react/i);
   fireEvent.click(item);
 
-  expect(mockToggleTodo).toHaveBeenCalledWith(1);
+  expect(mockToggleTodo).toHaveBeenCalledTimes(1);
 });
