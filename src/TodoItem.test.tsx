@@ -1,16 +1,18 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import { Todo } from "./Todo";
-import { TodoItem } from "./todo.interface";
+import { TodoItem } from "./TodoItem";
+import { Todo } from "./todo.interface";
 
-const todoItem: TodoItem = {
+const todoItem: Todo = {
   content: "learn react",
   id: 1,
   completed: false,
 };
 
 test("shows the todo", () => {
-  const { getByText } = render(<Todo todo={todoItem} toggleTodo={() => {}} />);
+  const { getByText } = render(
+    <TodoItem todo={todoItem} toggleTodo={() => {}} />
+  );
   const item = getByText(/learn react/i);
   expect(item).toBeInTheDocument();
 });
@@ -18,7 +20,7 @@ test("shows the todo", () => {
 test("toggles todo", () => {
   const mockToggleTodo = jest.fn();
   const { getByText } = render(
-    <Todo todo={todoItem} toggleTodo={mockToggleTodo} />
+    <TodoItem todo={todoItem} toggleTodo={mockToggleTodo} />
   );
   const item = getByText(/learn react/i);
   fireEvent.click(item);
