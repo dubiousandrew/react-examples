@@ -1,5 +1,5 @@
 import { observable, computed, action } from "mobx";
-import { ping, add } from "./api";
+import { add } from "./api";
 
 export class Todo {
   @observable content: string = "";
