@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import { TodoListView } from "./TodoListView";
-import { Todo, TodoList } from "./todo.interface";
 import { AddTodo } from "./AddTodo";
 import { autorun } from "mobx";
 import { store } from "./store";
 
-autorun(() => console.log(store.incompleteCount));
+autorun(() => console.log(JSON.stringify(store)));
 
 function App() {
   return (

@@ -1,4 +1,4 @@
-import { TodoList, Todo } from "./todo.interface";
+import { TodoList } from "./todo.interface";
 import { configure } from "mobx";
 
 configure({ enforceActions: "always" });
