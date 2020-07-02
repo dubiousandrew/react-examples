@@ -1,8 +1,10 @@
 import { observable, computed, action } from "mobx";
+import { ping, add } from "./api";
 
 export class Todo {
   @observable content: string = "";
   @observable completed: boolean = false;
+  @observable status: string = "local";
   id: number;
 
   constructor(id: number, content: string) {
@@ -14,6 +16,11 @@ export class Todo {
   toggleTodo() {
     this.completed = !this.completed;
   }
+
+  @action.bound
+  markAsSaved() {
+    this.status = "saved";
+  }
 }
 
 export class TodoList {
@@ -24,6 +31,11 @@ export class TodoList {
   }
   @action.bound
   addTodo(content: string) {
-    this.todos.push(new Todo(this.nextId++, content));
+    const ntd = new Todo(this.nextId++, content);
+    this.todos.push(ntd);
+    ntd.status = "syncing...";
+    add(ntd).then(() => {
+      ntd.markAsSaved();
+    });
   }
 }
