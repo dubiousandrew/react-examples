@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { TodoItem } from "./TodoItem";
-import { Todo } from "./todo.interface";
+import { Todo } from "./stores/todo";
 
 const todoItem = new Todo(1, "learn react");
 

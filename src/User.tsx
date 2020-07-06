@@ -1,15 +1,15 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { store } from "./store";
+import { useStores } from "./stores/use-stores";
 /**
- * Example of accessing the store directly without
- * passing in props.
+ * Example of using the hook to access the store
  */
 export const User = observer(() => {
+  const { userStore, todoListStore } = useStores();
   return (
     <div>
-      {store.username}: {store.incompleteCount}
-      <span onClick={store.checkAll}>check all</span>
+      {userStore.username}: {todoListStore.incompleteCount}
+      <span onClick={todoListStore.checkAll}>check all</span>
     </div>
   );
 });

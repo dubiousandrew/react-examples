@@ -1,4 +1,4 @@
-import { Todo } from "./todo.interface";
+import { Todo } from "./stores/todo";
 import superagent from "superagent";
 
 export function add(todo: Todo) {

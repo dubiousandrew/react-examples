@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-export function AddTodo(props: { addTodo: (content: string) => any }) {
+import { useStores } from "./stores/use-stores";
+
+export function AddTodo() {
   const [content, updateContent] = useState("");
+  const { todoListStore } = useStores();
+
   const handleAdd = () => {
     if (content.length) {
-      props.addTodo(content);
+      todoListStore.addTodo(content);
       updateContent("");
     }
   };
