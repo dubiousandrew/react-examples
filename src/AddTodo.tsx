@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useStores } from "./stores/use-stores";
+import { observer } from "mobx-react";
 
-export function AddTodo() {
+export function AddTodo(props: { addTodo: (text: string) => void }) {
   const [content, updateContent] = useState("");
-  const { todoListStore } = useStores();
 
   const handleAdd = () => {
     if (content.length) {
-      todoListStore.addTodo(content);
+      props.addTodo(content);
       updateContent("");
     }
   };
@@ -21,3 +21,8 @@ export function AddTodo() {
     </div>
   );
 }
+
+export const AT = observer(() => {
+  const { todoListStore } = useStores();
+  return <AddTodo addTodo={todoListStore.addTodo} />;
+});
